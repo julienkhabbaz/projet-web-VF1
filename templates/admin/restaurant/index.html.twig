@@ -1,0 +1,79 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %} Liste{% endblock %}
+
+{% block body %}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var $table1 = jQuery('#table-1');
+// Initialize DataTable
+            $table1.DataTable({
+                "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "bStateSave": true,
+                dom: 'lBfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+// Initalize Select Dropdown after DataTables is created
+            $table1.closest('.dataTables_wrapper').find('select').select2({
+                minimumResultsForSearch: -1
+            });
+        });
+    </script>
+    <h4 style="padding: 10px 0;">Liste des restaurants</h4>
+    <span><a href="{{ path('restaurant_new') }}" class="btn btn-primary">Ajouter un restaurant</a></span>
+    <table class="table table-bordered datatable" id="table-1">
+        <thead>
+            <tr>
+                <th class="sorting_disabled">Logo</th>
+                <th class="sorting_asc">Id</th>
+                <th class="sorting_disabled">Nom</th>
+                 <th class="sorting_disabled">Description</th>
+
+                <th class="col-md-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants|reverse %}
+            <tr class="odd gradeX">
+                {% if restaurant.filename %}
+				<td style="vertical-align: middle;"><img src="{{ vich_uploader_asset(restaurant,'imageFile') }}" alt="card-img-top" style="width: 50px; height:auto;"></td>
+                {% else %}
+				<img src="{{ '/images/restaurants/empty.png' | imagine_filter('medium') }}" alt="Logo" style="width: 50px; height:60px;">
+
+
+                {% endif %}
+                <td style="vertical-align: middle;">{{ restaurant.id }}</td>
+                <td style="vertical-align: middle;">{{ restaurant.name }}</td>
+                <td style="vertical-align: middle;">{{ restaurant.description }}</td>
+                <td class="col-md-3" style="vertical-align: middle; text-align: center;">
+                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}" class="btn btn-primary btn-sm btn-icon icon-left"> <i class="entypo-pencil"></i>Éditer</a>
+                    <a href="{{ path('restaurant_delete', {'id': restaurant.id}) }}" class="btn btn-primary btn-sm btn-icon icon-left"> <i class="entypo-pencil"></i>Vaisselle</a>
+        
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">pas de restaurants</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Logo</th>
+            <th>Email</th>
+            <th>Adresse</th>
+            <th>Action</th>
+        </tr>
+        </tfoot>
+    </table>
+
+
+{% endblock %}

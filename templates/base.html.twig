@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('content/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('content/css/bootstrap.min.css') }}">
+</head>
+<body>
+  <header id="header mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-md navbar-light nav" > <a class="navbar-brand" id="logo" href="{{ path('home') }}">La pizza</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+
+                              <ul class="navbar-nav mr-auto">
+                            <li class="nav-item "> <a href="{{ path('liste_restaurants') }}" class="nav-link nav-a" style="color: red;"> Restaurants</a> </li>
+
+                              </ul>
+                           <ul class="navbar-nav ml-auto" >
+
+                             {% if app.user  and is_granted('ROLE_ADMIN')%}
+                                <li class="nav-item "> <a href="{{ path('admin_dash') }}" class="nav-link nav-a" style="color: red;"> Espace Admin</a> </li>
+                               <li class="nav-item "> <a href="{{ path('logout') }}" class="nav-link nav-a" style="color: red;"> Se déconnecter</a> </li>
+                             
+                            {%  elseif  app.user  and is_granted('ROLE_RESTAURANT') %}
+                             <li class="nav-item "> <a href="{{ path('espace_restaurant') }}" class="nav-link nav-a" style="color: red;"> Espace Restaurant</a> </li>
+                            <li class="nav-item "> <a href="{{ path('logout') }}" class="nav-link nav-a" style="color: red;"> Se déconnecter</a> </li>
+                            {%  elseif  app.user  and is_granted('ROLE_USER') %}
+                             <li class="nav-item "> <a href="{{ path('espace_client') }}" class="nav-link nav-a" style="color: red;"> Espace Client</a> </li>
+                            <li class="nav-item "> <a href="{{ path('logout') }}" class="nav-link nav-a" style="color: red;"> Se déconnecter</a> </li>  
+                             {% else %}  
+                                <li class="nav-item "> <a href="{{ path('app_login') }}" class="nav-link nav-a " style="color: red; display: inline;">S'identifier </a> / <a href="{{ path('type_register') }}" class="nav-link nav-a " style="color: red; display: inline;">S'inscrire</a> </li>
+                            {% endif %}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+        {% block body %}{% endblock %}
+
+
+
+<footer class="page-footer font-small mdb-color lighten-3 pt-4 footerContent mt-5">
+    <div class="container text-center text-md-left">
+        <div class="row">
+            <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+                <h5 class="font-weight-bold text-uppercase mb-4">Spécialités</h5>
+                <ul  class="list-unstyled">
+                    <li><p><a href="#">Pizza</a></p></li>
+                    <li><p><a href="#">Japonais</a></p></li>
+                    <li><p><a href="#">Indien-Pakistanais</a></p></li>
+                    <li><p><a href="#">Chinois</a></p></li>
+                    <li><p><a href="#">KFC</a></p></li>
+                    <li><p><a href="#">Nos chanies</a></p></li>
+                    <li><p><a href="#">Plus de spécialités</a></p></li>
+                </ul>
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+                <h5 class="font-weight-bold text-uppercase mb-4">Villes</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <p>
+                            <a href="#!">Paris</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Marseille</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Lyon</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Toulouse</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Bordeaux</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Starsbourg</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Montpellier</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Toutes les villes</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                <h5 class="font-weight-bold text-uppercase mb-4">À propos de nous</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <p>
+                            <a href="#!">Qui sommes-nous ?</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">CGV</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Mentions légales</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Politique de confidentialité</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Cookies</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Suggérez-nous un resto</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Aide - FAQ</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Meilleur Prix Livré</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Rejoignez-nous </a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#!">Le Blog </a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-6 col-lg-6 text-center mx-auto my-4">
+                <h5 class="font-weight-bold text-uppercase mb-4">Téléchargez L'APP pour se faire livrer</h5>
+                <ul class="list-unstyled">
+                    <li><p><img class="img-fluid" src="{{ asset('content/images/apple-logo.PNG') }}"></p></li>
+                    <li><p><img class="img-fluid" src="{{ asset('content/images/samsung-logo.PNG') }}"></p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center py-3">© 2020 droits d'auteur:
+        <a href="#">La Pizza</a>
+    </div>
+</footer>
+{% block javascripts %}
+<script src="{{ asset('content/js/jquery.slim.min.js') }}" ></script>
+<script src="{{ asset('content/js/bootstrap.js') }}"></script>
+
+{% endblock %}
+</body>
+</html>

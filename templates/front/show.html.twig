@@ -1,0 +1,56 @@
+
+{% extends 'base.html.twig' %}
+{% block title restaurant.name %}
+
+{% block body %}	
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+
+            {% if restaurant.filename %}
+				<img class="img-fluid" src="{{ vich_uploader_asset(restaurant,'imageFile') | imagine_filter('medium') }}" alt="card-img-top">
+            {% else %}
+				<img src="{{ '/images/restaurants/empty.png' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+
+
+                {% endif %}
+            </div>
+            <div class="col-sm-6"><h1>{{restaurant.name}}</h1>
+                <p class="margin-top:0px">Description: {{restaurant.description | nl2br}}</p>
+                <p  style="margin-top:0px;">Adresse: {{restaurant.adresse}}</p>
+            </div>
+        
+        </div>
+		<div class="row">
+        <table class="table tab-stripedble">
+        <h1>Plats </h1>
+            <thead>
+                <tr>
+                <th>Libele</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plat in restaurant.plats %}
+            <tr>
+                <td>{{ plat.libele }}</td>
+                <td>{{ plat.description  | nl2br}}</td>
+                <td>{{ plat.prix }}</td>
+                <td><a href="{{ path('commander', {'id': plat.id}) }}" class="btn btn-primary "> Commander</a></td>
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">aucun plat trouve</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+			
+		</div>
+    </div>
+
+  
+{% endblock %}

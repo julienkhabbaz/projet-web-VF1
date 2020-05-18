@@ -1,0 +1,11 @@
+{% extends 'restaurant.html.twig' %}
+
+{% block title %}Nouveau Plat{% endblock %}
+
+{% block body %}
+    <h1>Nouveau Plat</h1>
+
+    {{ include('espace_restaurant/plats/_form.html.twig') }}
+
+    <a href="{{ path('plat_index') }}">retour a la liste</a>
+{% endblock %}

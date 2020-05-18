@@ -1,0 +1,75 @@
+{% extends 'restaurant.html.twig' %}
+
+{% block title %} !{% endblock %}
+
+{% block body %}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var $table1 = jQuery('#table-1');
+// Initialize DataTable
+            $table1.DataTable({
+                "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "bStateSave": true,
+                dom: 'lBfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+// Initalize Select Dropdown after DataTables is created
+            $table1.closest('.dataTables_wrapper').find('select').select2({
+                minimumResultsForSearch: -1
+            });
+        });
+    </script>
+    <h4 style="padding: 10px 0;">Liste des plats</h4>
+    <span><a href="{{ path('restaurants_new') }}" class="btn btn-primary">Ajouter un plat</a></span>
+    <table class="table table-bordered datatable" id="table-1">
+        <thead>
+            <tr>
+                <th class="sorting_disabled">Id</th>
+                <th class="sorting_asc">Libele</th>
+                <th class="sorting_disabled">Description</th>
+                <th class="sorting_disabled">Prix</th>
+                <th class="sorting_disabled">Restaurant</th>
+
+
+                <th class="col-md-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plat in plats %}
+            <tr class="odd gradeX">
+               
+                <td style="vertical-align: middle;">{{plat.id}}</td>
+                <td style="vertical-align: middle;">{{plat.libele}}</td>
+                <td style="vertical-align: middle;">{{plat.description}}</td>
+                <td style="vertical-align: middle;">{{plat.prix}}</td>
+                <td style="vertical-align: middle;">{{plat.restaurant}}</td>
+
+               <td class="col-md-3" style="vertical-align: middle; text-align: center;">
+                    <a href="#" class="btn btn-primary btn-sm btn-icon icon-left"> <i class="entypo-pencil"></i>Éditer</a>        
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">Pas de  plat</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Libele</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Action</th>
+        </tr>
+        </tfoot>
+    </table>
+
+
+{% endblock %}
